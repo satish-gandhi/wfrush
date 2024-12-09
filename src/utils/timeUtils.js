@@ -7,8 +7,7 @@ export const formatTime = (hour) => {
 export const parseSlotTime = (slotTime) => {
     if (!slotTime) return [null, null];
 
-    return slotTime.split('-').map(time => {
-        const hour = parseInt(time.replace(/[APM]/g, ''));
-        return time.includes('PM') && hour !== 12 ? hour + 12 : hour;
-    });
+    // Split on hyphen and parse as integers
+    const [start, end] = slotTime.split('-').map(time => parseInt(time, 10));
+    return [start, end];
 };
