@@ -12,19 +12,23 @@ const BusiestTimesDisplay = ({ busiestTimes }) => {
 
             {busiestTimes.weekend && (
                 <div className="mb-4">
-                    <h3 className="font-semibold text-lg">Busiest Weekend Time:</h3>
-                    <p className="text-gray-700">
-                        {busiestTimes.weekend.day} at {formatTime(busiestTimes.weekend.hour)}
-                    </p>
+                    <h3 className="font-semibold text-lg">Top Weekend Times:</h3>
+                    {busiestTimes.weekend.map((slot, index) => (
+                        <p key={index} className="text-gray-700">
+                            {index + 1}. {slot.day} from {formatTime(slot.startHour)} to {formatTime(slot.endHour)}
+                        </p>
+                    ))}
                 </div>
             )}
 
             {busiestTimes.weekday && (
                 <div>
-                    <h3 className="font-semibold text-lg">Busiest Weekday Time:</h3>
-                    <p className="text-gray-700">
-                        {busiestTimes.weekday.day} at {formatTime(busiestTimes.weekday.hour)}
-                    </p>
+                    <h3 className="font-semibold text-lg">Top Weekday Times:</h3>
+                    {busiestTimes.weekday.map((slot, index) => (
+                        <p key={index} className="text-gray-700">
+                            {index + 1}. {slot.day} from {formatTime(slot.startHour)} to {formatTime(slot.endHour)}
+                        </p>
+                    ))}
                 </div>
             )}
         </div>
