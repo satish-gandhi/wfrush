@@ -19,12 +19,15 @@ const LocationSelector = ({
             width: '100%',
             maxWidth: '800px',
             margin: '0 auto',
-            padding: '0 20px',
-            boxSizing: 'border-box'
+            padding: '10px 20px 10px 20px',
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
         }}>
             <div style={{
                 width: '100%',
-                maxWidth: '760px',
+                maxWidth: '800px',// Change from 760px
                 textAlign: 'center',
                 marginBottom: '2rem'
             }}>
@@ -94,7 +97,7 @@ const LocationSelector = ({
             <div style={{
                 minHeight: '80px',
                 width: '100%',
-                maxWidth: '760px',
+                maxWidth: '800px',
                 marginBottom: '40px'
             }}>
                 {selectedLocation && (
