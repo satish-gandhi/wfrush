@@ -32,7 +32,7 @@ const LocationSelector = ({
                 marginBottom: '2rem'
             }}>
                 <h1 className="ghostfounder-logo">GhostFounder</h1>
-                <h2 className="text-xl text-gray-600">Whole Foods Market: Busy Times</h2>
+                <h2 className="text-xl text-gray-600">Whole Foods : Busy Hours</h2>
             </div>
 
             <div style={{
