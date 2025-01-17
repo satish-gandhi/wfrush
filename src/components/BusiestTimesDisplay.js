@@ -3,31 +3,35 @@ import { formatTime } from '../utils/timeUtils';
 
 const BusiestTimesDisplay = ({ busiestTimes }) => {
     if (!busiestTimes.weekend && !busiestTimes.weekday) {
-        return null;
+        return <div className="busiest-times-card min-h-[200px] flex items-center justify-center">
+            <p className="text-gray-500">No busy times data available</p>
+        </div>;
     }
 
     return (
-        <div className="mb-6 p-4 bg-white rounded-lg shadow">
+        <div className="busiest-times-card min-h-[200px]">
             <h2 className="text-xl font-bold mb-4">Recommended Demo Times (Busiest Hours)</h2>
 
             {busiestTimes.weekend && (
                 <div className="mb-4">
-                    <h3 className="font-semibold text-lg">Top Weekend Times:</h3>
+                    <h3 className="font-semibold text-lg mb-3">Top Weekend Times:</h3>
                     {busiestTimes.weekend.map((slot, index) => (
-                        <p key={index} className="text-gray-700">
-                            {index + 1}. {slot.day} from {formatTime(slot.startHour)} to {formatTime(slot.endHour)}
-                        </p>
+                        <div key={index} className="time-slot">
+                            <span className="font-medium">{index + 1}. {slot.day}</span>
+                            <span className="text-muted"> from {formatTime(slot.startHour)} to {formatTime(slot.endHour)}</span>
+                        </div>
                     ))}
                 </div>
             )}
 
             {busiestTimes.weekday && (
                 <div>
-                    <h3 className="font-semibold text-lg">Top Weekday Times:</h3>
+                    <h3 className="font-semibold text-lg mb-3">Top Weekday Times:</h3>
                     {busiestTimes.weekday.map((slot, index) => (
-                        <p key={index} className="text-gray-700">
-                            {index + 1}. {slot.day} from {formatTime(slot.startHour)} to {formatTime(slot.endHour)}
-                        </p>
+                        <div key={index} className="time-slot">
+                            <span className="font-medium">{index + 1}. {slot.day}</span>
+                            <span className="text-muted"> from {formatTime(slot.startHour)} to {formatTime(slot.endHour)}</span>
+                        </div>
                     ))}
                 </div>
             )}

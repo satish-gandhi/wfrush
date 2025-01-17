@@ -1,38 +1,352 @@
+/* Modern base styles */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #f8fafc;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  position: relative;
+}
+
+/* GhostFounder Logo */
+.logo-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.logo-header>div {
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.ghostfounder-logo {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  color: #00674B;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem !important;
+  background: linear-gradient(135deg, #00674B 0%, #00896B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  text-align: left !important;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: auto;
+  border-top: 1px solid #e2e8f0;
+  background-color: white;
+}
+
+/* Modern header styling */
+h1:not(.ghostfounder-logo) {
+  color: #1e293b;
+  margin-bottom: 2rem !important;
+  font-size: 2.5rem !important;
+  text-align: center;
+  font-weight: 700 !important;
+}
+
+/* Enhanced select inputs */
+.App select {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #1e293b;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.App select:hover:not(:disabled) {
+  border-color: #94a3b8;
+  background-color: #f8fafc;
+}
+
+.App select:focus {
+  border-color: #00674B;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 103, 75, 0.25);
+}
+
+.App select:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+}
+
+.App select option {
+  padding: 0.5rem;
+}
+
+.App select option:checked {
+  background-color: #00674B;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Busiest Times Display enhancements */
+.busiest-times-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.busiest-times-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Daily Analysis improvements */
+.daily-analysis-container {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+}
+
+.hour-cell {
+  border-radius: 0.25rem;
+  transition: transform 0.15s ease;
+  position: relative;
+}
+
+.hour-cell:hover {
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+/* Time slots styling */
+.time-slot {
+  background: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.time-slot:hover {
+  border-color: #00674B;
+  background-color: #f8fafc;
+}
+
+/* Responsive design improvements */
+@media (max-width: 640px) {
+  .App {
+    padding: 1rem 0.5rem;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
+
+  .ghostfounder-logo {
+    font-size: 2rem !important;
+  }
+
+  h1:not(.ghostfounder-logo) {
+    font-size: 1.75rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .App select {
+    width: 100%;
+    min-height: 48px;
+    margin-bottom: 1rem;
+    -webkit-appearance: none;
+    user-select: none;
+  }
+
+  .daily-analysis-container {
+    padding: 1rem;
+    margin: 0 0.5rem 1rem;
+  }
+
+  .busiest-times-card {
+    padding: 1rem;
+    margin: 0 0.5rem 1.5rem;
+  }
+
+  .time-slot {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    min-height: 44px;
+    user-select: none;
+  }
+
+  .hour-cell {
+    min-width: 44px;
+    min-height: 44px;
+    user-select: none;
+  }
+
+  .location-address {
+    margin: 0.75rem 0.5rem;
+    padding: 1rem;
+    word-break: break-word;
+  }
+}
+
+/* Scrollbar customization */
+.daily-analysis-container>div::-webkit-scrollbar {
+  display: none;
+}
+
+.daily-analysis-container>div {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .time-slot:hover {
+    transform: none;
+  }
+
+  .hour-cell:hover {
+    transform: none;
+  }
+
+  .busiest-times-card:hover {
+    transform: none;
+  }
+
+  .time-slot:active,
+  .hour-cell:active,
+  .App select:active {
+    background-color: rgba(0, 103, 75, 0.1);
+  }
+}
+
+/* Modern typography */
+.text-muted {
+  color: #64748b;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+/* Busy/Quiet hours display */
+.hours-display {
+  background: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.hours-display p {
+  margin: 0.25rem 0;
+  color: #475569;
+}
+
+/* Find Slots Button and Popup Styles */
+.find-slots-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-size: 1.125rem;
+  letter-spacing: 0.025em;
+  background: linear-gradient(135deg, #00674B 0%, #00896B 100%);
+  border: none;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.find-slots-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 103, 75, 0.2);
+}
+
+.find-slots-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.popup-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Spinner Animation */
+@keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+.popup-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #00674B;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Location address display */
+.location-address {
+  background: #f1f5f9;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  color: #475569;
+  margin-top: 1rem;
+  text-align: center;
 }

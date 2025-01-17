@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import LocationSelector from './LocationSelector';
 import BusiestTimesDisplay from './BusiestTimesDisplay';
 import DailyAnalysis from './DailyAnalysis';
-import Legend from './Legend';
 import { analyzeBusiestTimes } from '../utils/dataProcessing';
 import { locations } from '../constants/data';
 
@@ -43,9 +42,11 @@ const BusyTimes = () => {
                     throw new Error("Failed to fetch venue data");
                 }
 
+                console.log("API Response Analysis:", data.analysis);
                 setAnalysis(data.analysis);
                 const selectedLocationObj = locations.find(loc => loc.address === selectedLocation);
                 if (selectedLocationObj) {
+                    console.log("Setting analysis data, length:", data.analysis.length);
                     setBusiestTimes(analyzeBusiestTimes(data.analysis, selectedLocationObj.code));
                 }
             } catch (err) {
@@ -60,27 +61,36 @@ const BusyTimes = () => {
     }, [selectedLocation]);
 
     return (
-        <div className="p-4 max-w-4xl mx-auto">
-            <LocationSelector
-                selectedMetro={selectedMetro}
-                selectedLocation={selectedLocation}
-                onMetroChange={setSelectedMetro}
-                onLocationChange={setSelectedLocation}
-            />
+        <div className="App">
+            <div className="p-4 max-w-4xl mx-auto">
+                <LocationSelector
+                    selectedMetro={selectedMetro}
+                    selectedLocation={selectedLocation}
+                    onMetroChange={setSelectedMetro}
+                    onLocationChange={setSelectedLocation}
+                />
 
-            {!selectedLocation ? (
-                <p>Please select a location to view busy times.</p>
-            ) : loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p style={{ color: "red" }}>{error}</p>
-            ) : (
-                <>
-                    <BusiestTimesDisplay busiestTimes={busiestTimes} />
-                    <DailyAnalysis analysis={analysis} />
-                    {analysis.length > 0 && <Legend />}
-                </>
-            )}
+                <div className="min-h-[600px]">
+                    {!selectedLocation ? (
+                        <div className="text-center text-gray-600 p-8 bg-white rounded-lg shadow-sm">
+                            Please select a location to view busy times.
+                        </div>
+                    ) : loading ? (
+                        <div className="text-center text-gray-600 p-8 bg-white rounded-lg shadow-sm">
+                            <div className="animate-pulse">Loading...</div>
+                        </div>
+                    ) : error ? (
+                        <div className="text-center text-red-600 p-8 bg-white rounded-lg shadow-sm border border-red-200">
+                            {error}
+                        </div>
+                    ) : (
+                        <>
+                            <BusiestTimesDisplay busiestTimes={busiestTimes} />
+                            <DailyAnalysis analysis={analysis} />
+                        </>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
