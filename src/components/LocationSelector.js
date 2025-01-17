@@ -86,14 +86,25 @@ const LocationSelector = ({
             </div>
 
             <div style={{
-                height: '80px',
-                width: '760px'
+                minHeight: '80px',
+                width: '760px',
+                marginBottom: '40px'
             }}>
                 {selectedLocation && (
-                    <div className="location-address">
-                        <p>{selectedLocation}</p>
+                    <div className="location-address" style={{
+                        backgroundColor: '#f1f5f9',
+                        padding: '16px',
+                        borderRadius: '8px',
+                        marginTop: '8px'
+                    }}>
+                        <p style={{ margin: '0' }}>{selectedLocation}</p>
                         {slotTime && (
-                            <p className="mt-2 text-sm font-medium text-green-800">
+                            <p style={{
+                                margin: '8px 0 0 0',
+                                fontSize: '14px',
+                                fontWeight: '500',
+                                color: '#166534'
+                            }}>
                                 Available demo slots: {slotTime.split('-')[0]}:00 AM - {slotTime.split('-')[1]}:00 {parseInt(slotTime.split('-')[1]) >= 12 ? 'PM' : 'AM'}
                             </p>
                         )}
