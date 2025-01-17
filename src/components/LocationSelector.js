@@ -16,12 +16,15 @@ const LocationSelector = ({
 
     return (
         <div style={{
-            width: '800px',
+            width: '100%',
+            maxWidth: '800px',
             margin: '0 auto',
-            padding: '0 20px'
+            padding: '0 20px',
+            boxSizing: 'border-box'
         }}>
             <div style={{
-                width: '760px',
+                width: '100%',
+                maxWidth: '760px',
                 textAlign: 'center',
                 marginBottom: '2rem'
             }}>
@@ -31,12 +34,13 @@ const LocationSelector = ({
 
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: '370px 370px',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                 gap: '20px',
                 marginBottom: '1.5rem',
-                width: '760px'
+                width: '100%',
+                maxWidth: '760px'
             }}>
-                <div style={{ width: '370px' }}>
+                <div style={{ width: '100%' }}>
                     <select
                         value={selectedMetro}
                         onChange={(e) => {
@@ -44,12 +48,13 @@ const LocationSelector = ({
                             onLocationChange("");
                         }}
                         style={{
-                            width: '370px',
+                            width: '100%',
                             height: '48px',
                             padding: '0 1rem',
                             borderRadius: '0.5rem',
                             border: '1px solid #e2e8f0',
-                            backgroundColor: '#fff'
+                            backgroundColor: '#fff',
+                            boxSizing: 'border-box'
                         }}
                     >
                         <option value="" disabled>Select Metro Area</option>
@@ -59,18 +64,19 @@ const LocationSelector = ({
                     </select>
                 </div>
 
-                <div style={{ width: '370px' }}>
+                <div style={{ width: '100%' }}>
                     <select
                         value={selectedLocation}
                         onChange={(e) => onLocationChange(e.target.value)}
                         disabled={!selectedMetro}
                         style={{
-                            width: '370px',
+                            width: '100%',
                             height: '48px',
                             padding: '0 1rem',
                             borderRadius: '0.5rem',
                             border: '1px solid #e2e8f0',
-                            backgroundColor: '#fff'
+                            backgroundColor: '#fff',
+                            boxSizing: 'border-box'
                         }}
                     >
                         <option value="" disabled>
@@ -87,7 +93,8 @@ const LocationSelector = ({
 
             <div style={{
                 minHeight: '80px',
-                width: '760px',
+                width: '100%',
+                maxWidth: '760px',
                 marginBottom: '40px'
             }}>
                 {selectedLocation && (

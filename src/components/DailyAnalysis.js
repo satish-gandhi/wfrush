@@ -11,13 +11,17 @@ const DailyAnalysis = ({ analysis }) => {
                         overflowX: "auto",
                         WebkitOverflowScrolling: "touch",
                         scrollbarWidth: "none",
-                        msOverflowStyle: "none"
+                        msOverflowStyle: "none",
+                        margin: "0 -1rem",
+                        padding: "0 1rem",
+                        position: "relative",
+                        width: "auto"
                     }}>
                         <div style={{
                             display: "grid",
-                            gridTemplateColumns: "repeat(24, minmax(44px, 1fr))",
+                            gridTemplateColumns: "repeat(24, 44px)",
                             gap: "2px",
-                            minWidth: "fit-content"
+                            width: "fit-content"
                         }}>
                             {day.hour_analysis.map((hour, hourIndex) => (
                                 <div
@@ -27,12 +31,14 @@ const DailyAnalysis = ({ analysis }) => {
                                         backgroundColor: getIntensityColor(hour.intensity_nr),
                                         color: getTextColor(hour.intensity_nr),
                                         padding: "0.5rem",
-                                        height: "2.5rem",
+                                        height: "44px",
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
                                         fontSize: "0.75rem",
-                                        cursor: "help"
+                                        cursor: "help",
+                                        boxSizing: "border-box",
+                                        minWidth: "44px"
                                     }}
                                     title={`${hour.hour}:00 - ${hour.intensity_txt}`}
                                 >
