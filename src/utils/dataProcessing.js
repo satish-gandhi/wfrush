@@ -18,83 +18,58 @@ export const analyzeBusiestTimes = (analysisData, locationName) => {
     const [slotStart, slotEnd] = parseSlotTime(slotTime);
     console.log('Store Hours:', `${slotStart}:00 to ${slotEnd}:00`);
 
-    // Initialize arrays to store top 3 busiest times
+    // Initialize arrays to store busiest times
     let weekendBusiest = [];
     let weekdayBusiest = [];
 
-    // Helper function to insert a time slot while maintaining top 3 sorted by intensity
-    const insertTimeSlot = (arr, newSlot) => {
-        arr.push(newSlot);
-        arr.sort((a, b) => b.intensity - a.intensity);
-        if (arr.length > 3) arr.pop();
-    };
-
     analysisData.forEach(day => {
         const dayName = day.day_info.day_text;
-        const isFriday = dayName === 'Friday';
 
-        // Get the hour analysis within slot time and with valid intensity data
-        const validHours = day.hour_analysis.filter(hour => {
-            const isWithinSlot = hour.hour >= slotStart && hour.hour < slotEnd;
-            const hasValidData = hour.intensity_nr !== undefined &&
-                hour.intensity_nr !== null &&
-                hour.intensity_txt &&
-                hour.intensity_txt !== 'Closed';
-
-            if (isWithinSlot && !hasValidData) {
-                console.log(`  Skipping ${hour.hour}:00 - No valid intensity data available`);
-            }
-
-            return isWithinSlot && hasValidData;
-        });
-
+        // Get traffic data for each hour within store hours
         console.log(`\nAnalyzing ${dayName}:`);
-        console.log('Valid hours with traffic data:');
-        validHours.forEach(hour => {
-            const intensity = hour.intensity_nr;
-            const startHour = hour.hour;
-            const endHour = startHour + 1;
-            console.log(`  ${startHour}:00-${endHour}:00 - Intensity: ${intensity} (${hour.intensity_txt})`);
+        console.log('Traffic data by hour:');
 
-            const timeSlot = {
-                day: dayName,
-                startHour,
-                endHour,
-                intensity
-            };
+        for (let hour = slotStart; hour < slotEnd; hour++) {
+            const trafficLevel = day.day_raw[hour];
+            console.log(`  ${hour}:00-${hour + 1}:00 - Traffic Level: ${trafficLevel}`);
 
-            // Consider Friday afternoons (after 12 PM) as weekend
-            const isWeekend = dayName === 'Saturday' || dayName === 'Sunday' ||
-                (isFriday && startHour >= 12);
+            // Only process hours with valid traffic data
+            if (typeof trafficLevel === 'number') {
+                const timeSlot = {
+                    day: dayName,
+                    startHour: hour,
+                    endHour: hour + 1,
+                    footTraffic: trafficLevel
+                };
 
-            if (isWeekend) {
-                insertTimeSlot(weekendBusiest, timeSlot);
-                if (weekendBusiest.length <= 3) {
-                    console.log(`  Added to weekend top 3! Current intensity rank: ${weekendBusiest.length}`);
-                }
-            } else {
-                insertTimeSlot(weekdayBusiest, timeSlot);
-                if (weekdayBusiest.length <= 3) {
-                    console.log(`  Added to weekday top 3! Current intensity rank: ${weekdayBusiest.length}`);
+                // Only Saturday and Sunday are weekends
+                const isWeekend = dayName === 'Saturday' || dayName === 'Sunday';
+
+                if (isWeekend) {
+                    weekendBusiest.push(timeSlot);
+                    console.log(`  Added to weekend slots`);
+                } else {
+                    weekdayBusiest.push(timeSlot);
+                    console.log(`  Added to weekday slots`);
                 }
             }
-        });
-
-        if (validHours.length === 0) {
-            console.log('  No valid hours with traffic data found for this day');
         }
     });
 
-    console.log('\nFinal Results:');
+    console.log('\nSorted Results:');
 
-    console.log('Weekend Top 3:');
+    // Sort slots by traffic level and log results
+    weekendBusiest.sort((a, b) => b.footTraffic - a.footTraffic);
+    weekdayBusiest.sort((a, b) => b.footTraffic - a.footTraffic);
+
+    console.log('Weekend Slots:', weekendBusiest.length);
     weekendBusiest.forEach((slot, index) => {
-        console.log(`${index + 1}. ${slot.day} ${slot.startHour}:00-${slot.endHour}:00 (Intensity: ${slot.intensity})`);
+        console.log(`${index + 1}. ${slot.day} ${slot.startHour}:00-${slot.endHour}:00 (Traffic Level: ${slot.footTraffic})`);
     });
 
-    console.log('\nWeekday Top 3:');
+    console.log('\nWeekday Slots:', weekdayBusiest.length);
     weekdayBusiest.forEach((slot, index) => {
-        console.log(`${index + 1}. ${slot.day} ${slot.startHour}:00-${slot.endHour}:00 (Intensity: ${slot.intensity})`);
+        console.log(`${index + 1}. ${slot.day} ${slot.startHour}:00-${slot.endHour}:00 (Traffic Level: ${slot.footTraffic})`);
     });
 
     // Filter out any times outside slot time range
