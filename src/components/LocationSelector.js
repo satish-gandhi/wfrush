@@ -25,15 +25,7 @@ const LocationSelector = ({
             flexDirection: 'column',
             alignItems: 'center'
         }}>
-            <div style={{
-                width: '100%',
-                maxWidth: '800px',// Change from 760px
-                textAlign: 'center',
-                marginBottom: '2rem'
-            }}>
-                <h1 className="ghostfounder-logo">GhostFounder</h1>
-                <h2 className="text-xl text-gray-600">Whole Foods : Busy Hours</h2>
-            </div>
+
 
             <div style={{
                 display: 'grid',
