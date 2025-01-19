@@ -8,7 +8,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(null);
 
   return (
-    <div className="App" style={{ backgroundColor: "#f8fafc", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div className="App" style={{ backgroundColor: "#f5f5f5", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <div className="logo-header">
         <div>
           <h1 className="ghostfounder-logo">GhostFounder</h1>
@@ -26,7 +26,9 @@ function App() {
         </div>
       )}
       <footer className="footer">
-        Made by Team GhostFounder
+        <div>
+          Made by Team GhostFounder
+        </div>
       </footer>
     </div>
   );
