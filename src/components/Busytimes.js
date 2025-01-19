@@ -63,32 +63,35 @@ const BusyTimes = () => {
     return (
         <div className="App">
             <div className="p-4 max-w-4xl mx-auto">
-                <LocationSelector
-                    selectedMetro={selectedMetro}
-                    selectedLocation={selectedLocation}
-                    onMetroChange={setSelectedMetro}
-                    onLocationChange={setSelectedLocation}
-                />
+                <div className="bg-white rounded-lg shadow-sm p-8">
 
-                <div className="min-h-[600px]">
-                    {!selectedLocation ? (
-                        <div className="text-center text-gray-600 p-8 bg-white rounded-lg shadow-sm">
-                            Please select a location to view busy times.
-                        </div>
-                    ) : loading ? (
-                        <div className="text-center text-gray-600 p-8 bg-white rounded-lg shadow-sm">
-                            <div className="animate-pulse">Loading...</div>
-                        </div>
-                    ) : error ? (
-                        <div className="text-center text-red-600 p-8 bg-white rounded-lg shadow-sm border border-red-200">
-                            {error}
-                        </div>
-                    ) : (
-                        <>
-                            <BusiestTimesDisplay busiestTimes={busiestTimes} />
-                            <DailyAnalysis analysis={analysis} />
-                        </>
-                    )}
+                    <LocationSelector
+                        selectedMetro={selectedMetro}
+                        selectedLocation={selectedLocation}
+                        onMetroChange={setSelectedMetro}
+                        onLocationChange={setSelectedLocation}
+                    />
+
+                    <div className="min-h-[600px]">
+                        {!selectedLocation ? (
+                            <div className="text-center text-gray-600 p-8 bg-white rounded-lg shadow-sm">
+                                Please select a location to view busy times.
+                            </div>
+                        ) : loading ? (
+                            <div className="text-center text-gray-600 p-8 bg-white rounded-lg shadow-sm">
+                                <div className="animate-pulse">Loading...</div>
+                            </div>
+                        ) : error ? (
+                            <div className="text-center text-red-600 p-8 bg-white rounded-lg shadow-sm border border-red-200">
+                                {error}
+                            </div>
+                        ) : (
+                            <>
+                                <BusiestTimesDisplay busiestTimes={busiestTimes} />
+                                <DailyAnalysis analysis={analysis} />
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

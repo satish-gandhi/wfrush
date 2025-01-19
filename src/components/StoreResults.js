@@ -17,9 +17,7 @@ const StoreResults = ({ recommendations }) => {
                 slots: []
             };
         }
-        if (acc[slot.store].slots.length < 3) {
-            acc[slot.store].slots.push(slot);
-        }
+        acc[slot.store].slots.push(slot);
         return acc;
     }, {});
 
@@ -27,7 +25,7 @@ const StoreResults = ({ recommendations }) => {
         <div className="daily-analysis-container">
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-900">Recommended Demo Slots</h2>
-                <span className="text-sm text-muted">Showing top 3 slots per store</span>
+                <span className="text-sm text-muted">Showing top 3 busiest slots</span>
             </div>
 
             <div className="flex flex-col gap-6">
@@ -42,27 +40,28 @@ const StoreResults = ({ recommendations }) => {
                         </div>
 
                         {/* Slots Container */}
-                        <div className="time-slots-container flex flex-row flex-wrap gap-4">                            {storeData.slots.map((slot, slotIndex) => (
-                            <div
-                                key={slotIndex}
-                                className="time-slotschedule p-4 bg-gray-50 rounded-lg"
-                            >
-                                <div className="flex flex-col space-y-3">
-                                    <div className="text-gray-800">
-                                        <span className="font-medium">Day:</span> {slot.day}
-                                    </div>
-                                    <div className="text-gray-800">
-                                        <span className="font-medium">Time Slot:</span> {slot.startHour}:00 - {slot.endHour}:00
-                                    </div>
-                                    <div className="text-gray-800">
-                                        <span className="font-medium">Traffic Level:</span>
-                                        <span className={`ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getTrafficColor(slot.footTraffic)}`}>
-                                            {slot.footTraffic}%
-                                        </span>
+                        <div className="time-slots-container flex flex-row flex-wrap gap-4">
+                            {storeData.slots.map((slot, slotIndex) => (
+                                <div
+                                    key={slotIndex}
+                                    className="time-slotschedule p-4 bg-gray-50 rounded-lg"
+                                >
+                                    <div className="flex flex-col space-y-3">
+                                        <div className="text-gray-800">
+                                            <span className="font-medium">Day:</span> {slot.day}
+                                        </div>
+                                        <div className="text-gray-800">
+                                            <span className="font-medium">Time Slot:</span> {slot.startHour}:00 - {slot.endHour}:00
+                                        </div>
+                                        <div className="text-gray-800">
+                                            <span className="font-medium">Traffic Level:</span>
+                                            <span className={`ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getTrafficColor(slot.footTraffic)}`}>
+                                                {slot.footTraffic}%
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                         </div>
                     </div>
                 ))}

@@ -337,4 +337,4 @@ export const locations = [
     }
 ];
 
-export const metros = ["All", "Austin/SA", "Dallas", "Arkansas", "Oklahoma", "Houston", "Louisiana"];
+export const metros = ["Austin/SA", "Dallas", "Arkansas", "Oklahoma", "Houston", "Louisiana"];

@@ -558,12 +558,30 @@ h1:not(.ghostfounder-logo) {
   background: linear-gradient(135deg, #00674B 0%, #00896B 100%);
   border: none;
   width: 100%;
-  padding: 1.5rem 2rem;
+  max-width: 400px;
+  padding: 1.25rem 2rem;
   border-radius: 1rem;
   color: white;
   font-weight: 600;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
+  display: block;
   box-shadow: 0 4px 6px rgba(0, 103, 75, 0.1);
+}
+
+@media (max-width: 640px) {
+  .find-slots-btn {
+    max-width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+    margin: 1rem auto;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .find-slots-btn {
+    max-width: 320px;
+    padding: 1.125rem 1.75rem;
+  }
 }
 
 .find-slots-btn:hover:not(:disabled) {

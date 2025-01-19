@@ -12,7 +12,7 @@ function App() {
       <div className="logo-header">
         <div>
           <h1 className="ghostfounder-logo">GhostFounder</h1>
-          <h2 className="text-xl text-gray-600">Whole Foods : Busy Hours</h2>
+          <h2 className="text-xl text-gray-600 text-center">Whole Foods : Busy Hours</h2>
         </div>
       </div>
       <Navigation onPageChange={setCurrentPage} currentPage={currentPage} />
@@ -25,7 +25,7 @@ function App() {
           </div>
         </div>
       )}
-      <footer className="footer">
+      <footer className="footer text-black-900">
         <div>
           Made by Team GhostFounder
         </div>

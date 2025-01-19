@@ -168,10 +168,10 @@ const Scheduler = () => {
                 }
             });
 
-            // Sort by foot traffic level
+            // Sort by foot traffic level and get top 3 slots
             recommendedSlots = recommendedSlots
                 .sort((a, b) => b.footTraffic - a.footTraffic)
-                .slice(0, 10);
+                .slice(0, 3);
 
             if (recommendedSlots.length === 0) {
                 setError("No slots found during selected availability. Try expanding your availability or selecting different stores.");
@@ -217,58 +217,60 @@ const Scheduler = () => {
 
                     {/* Store Selection */}
                     <div className="mb-6">
-                        <h3 className="text-lg font-semibold mb-3">Select Stores</h3>
-                        <div className="flex flex-col space-y-2">
-                            {locations
-                                .filter(loc => selectedMetro === loc.metro)
-                                .map(store => (
-                                    <label key={store.address} className="flex items-center space-x-2">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedStores.includes(store.address)}
-                                            onChange={() => handleStoreChange(store.address)}
-                                            className="w-4 h-4"
-                                        />
-                                        <span>{store.name}</span>
-                                    </label>
-                                ))}
+                        <h3 className="text-lg font-semibold mb-4">Select Stores</h3>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {locations
+                                    .filter(loc => selectedMetro === loc.metro)
+                                    .map(store => (
+                                        <label key={store.address} className="flex items-center space-x-3 bg-white p-2 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedStores.includes(store.address)}
+                                                onChange={() => handleStoreChange(store.address)}
+                                                className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                            />
+                                            <span className="text-gray-700">{store.name}</span>
+                                        </label>
+                                    ))}
+                            </div>
                         </div>
                     </div>
 
                     {/* Team Availability */}
                     <div className="mb-6">
-                        <h3 className="text-lg font-semibold mb-3">Team Availability</h3>
+                        <h3 className="text-lg font-semibold mb-4">Team Availability</h3>
 
-                        <div className="flex flex-col space-y-6">
-                            <div>
-                                <h4 className="font-medium mb-2">Days Available</h4>
-                                <div className="flex flex-col space-y-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="bg-gray-50 p-4 rounded-lg">
+                                <h4 className="font-medium mb-3 text-gray-700">Days Available</h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-3">
                                     {Object.entries(availability.weekdays).map(([day, checked]) => (
-                                        <label key={day} className="flex items-center space-x-2">
+                                        <label key={day} className="flex items-center space-x-3 bg-white p-2 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
                                             <input
                                                 type="checkbox"
                                                 checked={checked}
                                                 onChange={() => handleAvailabilityChange('weekdays', day)}
-                                                className="w-4 h-4"
+                                                className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             />
-                                            <span className="capitalize">{day}</span>
+                                            <span className="capitalize text-gray-700">{day}</span>
                                         </label>
                                     ))}
                                 </div>
                             </div>
 
-                            <div>
-                                <h4 className="font-medium mb-2">Shifts Available</h4>
-                                <div className="flex flex-col space-y-2">
+                            <div className="bg-gray-50 p-4 rounded-lg">
+                                <h4 className="font-medium mb-3 text-gray-700">Shifts Available</h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-3">
                                     {Object.entries(availability.shift).map(([shift, checked]) => (
-                                        <label key={shift} className="flex items-center space-x-2">
+                                        <label key={shift} className="flex items-center space-x-3 bg-white p-2 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
                                             <input
                                                 type="checkbox"
                                                 checked={checked}
                                                 onChange={() => handleAvailabilityChange('shift', shift)}
-                                                className="w-4 h-4"
+                                                className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             />
-                                            <span className="capitalize">{shift}</span>
+                                            <span className="capitalize text-gray-700">{shift}</span>
                                         </label>
                                     ))}
                                 </div>
