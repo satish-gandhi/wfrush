@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { metros, locations, slotData } from '../constants/data';
 import { analyzeBusiestTimes } from '../utils/dataProcessing';
-
+import StoreResults from './StoreResults';
 const Scheduler = () => {
     const [selectedMetro, setSelectedMetro] = useState('');
     const [selectedStores, setSelectedStores] = useState([]);
@@ -293,53 +293,7 @@ const Scheduler = () => {
 
                 {/* Recommendations */}
                 {recommendations.length > 0 && (
-                    <div className="mt-6">
-                        <h3 className="text-lg font-semibold mb-3">Best Demo Slots by Store</h3>
-                        <p className="text-sm text-gray-600 mb-4">Showing top 3 times per store based on foot traffic data</p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {Object.values(recommendations.reduce((acc, slot) => {
-                                if (!acc[slot.store]) {
-                                    acc[slot.store] = {
-                                        store: slot.store,
-                                        address: slot.address,
-                                        slots: []
-                                    };
-                                }
-                                if (acc[slot.store].slots.length < 3) {
-                                    acc[slot.store].slots.push(slot);
-                                }
-                                return acc;
-                            }, {})).map((storeData, index) => (
-                                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                                    <div className="bg-gray-50 p-4 border-b">
-                                        <h4 className="font-semibold text-lg">{storeData.store}</h4>
-                                        <p className="text-sm text-gray-600">{storeData.address}</p>
-                                    </div>
-                                    <div className="p-4 space-y-3">
-                                        {storeData.slots.map((slot, slotIndex) => (
-                                            <div key={slotIndex} className="border-b last:border-b-0 pb-3 last:pb-0">
-                                                <div className="flex justify-between items-center">
-                                                    <p className="text-sm font-medium">
-                                                        {slot.day} - {slot.startHour}:00 to {slot.endHour}:00
-                                                    </p>
-                                                    <div className={`px-3 py-1 rounded-full text-sm font-medium ${slot.footTraffic >= 75 ? 'bg-red-100 text-red-800' :
-                                                            slot.footTraffic >= 50 ? 'bg-orange-100 text-orange-800' :
-                                                                slot.footTraffic >= 25 ? 'bg-yellow-100 text-yellow-800' :
-                                                                    'bg-green-100 text-green-800'
-                                                        }`}>
-                                                        Traffic: {slot.footTraffic}
-                                                    </div>
-                                                </div>
-                                                <p className="text-xs text-gray-500 mt-1">
-                                                    {getTrafficDescription(slot.footTraffic)}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <StoreResults recommendations={recommendations} />
                 )}
             </div>
         </div>
