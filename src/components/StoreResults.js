@@ -42,28 +42,27 @@ const StoreResults = ({ recommendations }) => {
                         </div>
 
                         {/* Slots Container */}
-                        <div className="time-slots-container flex flex-col space-y-4">
-                            {storeData.slots.map((slot, slotIndex) => (
-                                <div
-                                    key={slotIndex}
-                                    className="time-slotschedule p-4 bg-gray-50 rounded-lg"
-                                >
-                                    <div className="flex flex-col space-y-3">
-                                        <div className="text-gray-800">
-                                            <span className="font-medium">Day:</span> {slot.day}
-                                        </div>
-                                        <div className="text-gray-800">
-                                            <span className="font-medium">Time Slot:</span> {slot.startHour}:00 - {slot.endHour}:00
-                                        </div>
-                                        <div className="text-gray-800">
-                                            <span className="font-medium">Traffic Level:</span>
-                                            <span className={`ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getTrafficColor(slot.footTraffic)}`}>
-                                                {slot.footTraffic}%
-                                            </span>
-                                        </div>
+                        <div className="time-slots-container flex flex-row flex-wrap gap-4">                            {storeData.slots.map((slot, slotIndex) => (
+                            <div
+                                key={slotIndex}
+                                className="time-slotschedule p-4 bg-gray-50 rounded-lg"
+                            >
+                                <div className="flex flex-col space-y-3">
+                                    <div className="text-gray-800">
+                                        <span className="font-medium">Day:</span> {slot.day}
+                                    </div>
+                                    <div className="text-gray-800">
+                                        <span className="font-medium">Time Slot:</span> {slot.startHour}:00 - {slot.endHour}:00
+                                    </div>
+                                    <div className="text-gray-800">
+                                        <span className="font-medium">Traffic Level:</span>
+                                        <span className={`ml-2 inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getTrafficColor(slot.footTraffic)}`}>
+                                            {slot.footTraffic}%
+                                        </span>
                                     </div>
                                 </div>
-                            ))}
+                            </div>
+                        ))}
                         </div>
                     </div>
                 ))}
