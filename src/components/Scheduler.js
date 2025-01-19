@@ -195,106 +195,107 @@ const Scheduler = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto p-4">
-            <div className="bg-white rounded-lg shadow-sm p-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Schedule Demo</h2>
+        <div className="App">
+            <div className="w-full max-w-4xl mx-auto p-4">
+                <div className="bg-white rounded-lg shadow-sm p-8">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Schedule Demo</h2>
 
-                {/* Metro Selection */}
-                <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-3">Select Metro Area</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        {metros.map(metro => (
-                            <label key={metro} className="flex items-center space-x-2">
-                                <input
-                                    type="radio"
-                                    name="metro"
-                                    value={metro}
-                                    checked={selectedMetro === metro}
-                                    onChange={() => handleMetroChange(metro)}
-                                    className="w-4 h-4"
-                                />
-                                <span>{metro}</span>
-                            </label>
-                        ))}
+                    {/* Metro Selection */}
+                    <div className="mb-6">
+                        <h3 className="text-lg font-semibold mb-3">Select Metro Area</h3>
+                        <select
+                            value={selectedMetro}
+                            onChange={(e) => handleMetroChange(e.target.value)}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        >
+                            <option value="">Select a metro area</option>
+                            {metros.map(metro => (
+                                <option key={metro} value={metro}>{metro}</option>
+                            ))}
+                        </select>
                     </div>
-                </div>
 
-                {/* Store Selection */}
-                <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-3">Select Stores</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {locations
-                            .filter(loc => selectedMetro === loc.metro)
-                            .map(store => (
-                                <label key={store.address} className="flex items-center space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedStores.includes(store.address)}
-                                        onChange={() => handleStoreChange(store.address)}
-                                        className="w-4 h-4"
-                                    />
-                                    <span>{store.name}</span>
-                                </label>
-                            ))}
-                    </div>
-                </div>
-
-                {/* Team Availability */}
-                <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-3">Team Availability</h3>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <h4 className="font-medium mb-2">Days Available</h4>
-                            {Object.entries(availability.weekdays).map(([day, checked]) => (
-                                <label key={day} className="flex items-center space-x-2 mb-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={checked}
-                                        onChange={() => handleAvailabilityChange('weekdays', day)}
-                                        className="w-4 h-4"
-                                    />
-                                    <span className="capitalize">{day}</span>
-                                </label>
-                            ))}
-                        </div>
-
-                        <div>
-                            <h4 className="font-medium mb-2">Shifts Available</h4>
-                            {Object.entries(availability.shift).map(([shift, checked]) => (
-                                <label key={shift} className="flex items-center space-x-2 mb-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={checked}
-                                        onChange={() => handleAvailabilityChange('shift', shift)}
-                                        className="w-4 h-4"
-                                    />
-                                    <span className="capitalize">{shift}</span>
-                                </label>
-                            ))}
+                    {/* Store Selection */}
+                    <div className="mb-6">
+                        <h3 className="text-lg font-semibold mb-3">Select Stores</h3>
+                        <div className="flex flex-col space-y-2">
+                            {locations
+                                .filter(loc => selectedMetro === loc.metro)
+                                .map(store => (
+                                    <label key={store.address} className="flex items-center space-x-2">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedStores.includes(store.address)}
+                                            onChange={() => handleStoreChange(store.address)}
+                                            className="w-4 h-4"
+                                        />
+                                        <span>{store.name}</span>
+                                    </label>
+                                ))}
                         </div>
                     </div>
-                </div>
 
-                {/* Find Slots Button */}
-                <button
-                    onClick={findBestSlots}
-                    disabled={loading}
-                    className="find-slots-btn w-full"
-                >
-                    {loading ? 'Finding Best Slots...' : 'Find Highest Traffic Demo Slots'}
-                </button>
+                    {/* Team Availability */}
+                    <div className="mb-6">
+                        <h3 className="text-lg font-semibold mb-3">Team Availability</h3>
 
-                {error && (
-                    <div className="text-red-600 mt-4 p-4 bg-red-50 rounded-lg">
-                        {error}
+                        <div className="flex flex-col space-y-6">
+                            <div>
+                                <h4 className="font-medium mb-2">Days Available</h4>
+                                <div className="flex flex-col space-y-2">
+                                    {Object.entries(availability.weekdays).map(([day, checked]) => (
+                                        <label key={day} className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={checked}
+                                                onChange={() => handleAvailabilityChange('weekdays', day)}
+                                                className="w-4 h-4"
+                                            />
+                                            <span className="capitalize">{day}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 className="font-medium mb-2">Shifts Available</h4>
+                                <div className="flex flex-col space-y-2">
+                                    {Object.entries(availability.shift).map(([shift, checked]) => (
+                                        <label key={shift} className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={checked}
+                                                onChange={() => handleAvailabilityChange('shift', shift)}
+                                                className="w-4 h-4"
+                                            />
+                                            <span className="capitalize">{shift}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                )}
 
-                {/* Recommendations */}
-                {recommendations.length > 0 && (
-                    <StoreResults recommendations={recommendations} />
-                )}
+                    {/* Find Slots Button */}
+                    <button
+                        onClick={findBestSlots}
+                        disabled={loading}
+                        className="find-slots-btn w-full"
+                    >
+                        {loading ? 'Finding Best Slots...' : 'Find Highest Traffic Demo Slots'}
+                    </button>
+
+                    {error && (
+                        <div className="text-red-600 mt-4 p-4 bg-red-50 rounded-lg">
+                            {error}
+                        </div>
+                    )}
+
+                    {/* Recommendations */}
+                    {recommendations.length > 0 && (
+                        <StoreResults recommendations={recommendations} />
+                    )}
+                </div>
             </div>
         </div>
     );

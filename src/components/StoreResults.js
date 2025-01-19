@@ -42,13 +42,13 @@ const StoreResults = ({ recommendations }) => {
                         </div>
 
                         {/* Slots Container */}
-                        <div className="time-slots-container">
+                        <div className="time-slots-container flex flex-col space-y-4">
                             {storeData.slots.map((slot, slotIndex) => (
                                 <div
                                     key={slotIndex}
-                                    className="time-slotschedule"
+                                    className="time-slotschedule p-4 bg-gray-50 rounded-lg"
                                 >
-                                    <div className="flex flex-col space-y-2">
+                                    <div className="flex flex-col space-y-3">
                                         <div className="text-gray-800">
                                             <span className="font-medium">Day:</span> {slot.day}
                                         </div>
