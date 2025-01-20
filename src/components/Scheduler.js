@@ -11,7 +11,9 @@ const Scheduler = () => {
             tuesday: false,
             wednesday: false,
             thursday: false,
-            friday: false
+            friday: false,
+            saturday: false,
+            sunday: false
         },
         shift: {
             morning: false,
