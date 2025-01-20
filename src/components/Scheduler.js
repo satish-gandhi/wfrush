@@ -121,16 +121,17 @@ const Scheduler = () => {
             const validStoresData = storesData.filter(data => data && data.data);
             console.log('Valid stores data:', validStoresData);
 
-            let recommendedSlots = [];
+            let allStoreRecommendations = [];
 
-            // Process all store data first
+            // Process each store's data separately
             console.log('Processing store data...');
             validStoresData.forEach(({ store, data }) => {
                 const { weekend, weekday } = data;
                 const slotTime = slotData[store.code];
                 if (!slotTime) return;
 
-                // Not currently using slot time range for validation
+                let storeSlots = [];
+
                 const isValidTime = (hour) => {
                     const isMorning = hour < 12;
                     const isEvening = hour >= 12;
@@ -142,12 +143,11 @@ const Scheduler = () => {
                     if (!slots) return;
                     slots.forEach(slot => {
                         const day = slot.day.toLowerCase();
-                        // Check if the day is selected in availability
                         const dayAvailable = availability.weekdays[day];
                         const timeValid = isValidTime(slot.startHour);
 
                         if (dayAvailable && timeValid) {
-                            recommendedSlots.push({
+                            storeSlots.push({
                                 store: store.name,
                                 address: store.address,
                                 day: slot.day,
@@ -159,26 +159,25 @@ const Scheduler = () => {
                     });
                 };
 
-                // Process weekday slots first
+                // Process both weekday and weekend slots
                 processSlots(weekday, false);
+                processSlots(weekend, true);
 
-                // Only process weekend slots if we don't have enough weekday slots
-                if (recommendedSlots.length < 5) {
-                    processSlots(weekend, true);
+                // Sort and get top 3 slots for this store
+                if (storeSlots.length > 0) {
+                    const topStoreSlots = storeSlots
+                        .sort((a, b) => b.footTraffic - a.footTraffic)
+                        .slice(0, 3);
+                    allStoreRecommendations = [...allStoreRecommendations, ...topStoreSlots];
                 }
             });
 
-            // Sort by foot traffic level and get top 3 slots
-            recommendedSlots = recommendedSlots
-                .sort((a, b) => b.footTraffic - a.footTraffic)
-                .slice(0, 3);
-
-            if (recommendedSlots.length === 0) {
+            if (allStoreRecommendations.length === 0) {
                 setError("No slots found during selected availability. Try expanding your availability or selecting different stores.");
                 return;
             }
 
-            setRecommendations(recommendedSlots);
+            setRecommendations(allStoreRecommendations);
         } catch (err) {
             setError("Failed to fetch store data. Please try again.");
             console.error("Error:", err);
